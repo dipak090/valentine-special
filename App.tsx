@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
 
 // --- Configuration ---
-const SUPABASE_URL = 'https://chykrqovdxcopoztpwlt.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_s0YDIOSjfQ_myaRmhyRHag_yEQZyZTN';
-const CLOUDINARY_UPLOAD_PRESET = 'ml_default';
-const CLOUDINARY_CLOUD_NAME = 'dggtlz7je';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 // Safely initialize Supabase client
 let supabase: any = null;
@@ -273,7 +274,7 @@ const CreatorView: React.FC<{ onCreated: (proposal: ProposalData) => void }> = (
       const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
         method: 'POST',
         body: formData,
-      });
+      }); 
       if (!res.ok) throw new Error("Image upload failed");
       const data = await res.json();
       setImage(data.secure_url);
