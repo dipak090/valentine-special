@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Heart, Sparkles, Music, Star, Loader2, Upload, Share2, Copy, Check, ArrowLeft, ExternalLink, AlertCircle, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
