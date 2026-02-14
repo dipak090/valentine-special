@@ -203,7 +203,7 @@ const ProposalView: React.FC<{ onAccept: () => void, customImage?: string, partn
   }, [moveNoButton]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full flex flex-col items-center justify-center p-6 min-h-screen overflow-hidden">
+    <div ref={containerRef} className="relative flex flex-col items-center justify-center p-6 min-h-screen">
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center z-10 w-full max-w-3xl">
         <div className="mb-10 relative inline-block">
           <motion.div animate={{ rotate: [0, -2, 2, 0], scale: [1, 1.02, 1] }} transition={{ duration: 6, repeat: Infinity }}>
