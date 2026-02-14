@@ -263,23 +263,34 @@ const CreatorView: React.FC<{ onCreated: (proposal: ProposalData) => void }> = (
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+      setError('Missing Cloudinary configuration. Check .env file and restart server.');
+      return;
+    }
+
     setError(null);
     setIsUploading(true);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
+    const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
     try {
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      const res = await fetch(uploadUrl, {
         method: 'POST',
         body: formData,
-      }); 
-      if (!res.ok) throw new Error("Image upload failed");
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.text();
+        throw new Error(`Upload failed: ${res.status}`);
+      }
+      
       const data = await res.json();
       setImage(data.secure_url);
     } catch (err) {
-      console.error("Upload failed", err);
-      setError("Failed to upload image. Please check your internet or configuration.");
+      setError(`Upload failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
     } finally {
       setIsUploading(false);
     }
@@ -293,7 +304,7 @@ const CreatorView: React.FC<{ onCreated: (proposal: ProposalData) => void }> = (
     setError(null);
     setIsUploading(true);
     try {
-      const { data, error } = await supabase
+      const { data, error: dbError } = await supabase
         .from('proposals')
         .insert([{ 
           image_url: image,
@@ -301,7 +312,7 @@ const CreatorView: React.FC<{ onCreated: (proposal: ProposalData) => void }> = (
         }])
         .select();
 
-      if (error) throw error;
+      if (dbError) throw dbError;
       if (data && data[0]) {
         setNewProposal(data[0]);
       } else {
