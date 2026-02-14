@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Heart, Sparkles, Music, Star, Loader2, Upload, Share2, Copy, Check, ArrowLeft, ExternalLink, AlertCircle, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
-
+import { Analytics } from "@vercel/analytics/next"
 // --- Configuration ---
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
