@@ -337,7 +337,7 @@ const CreatorView: React.FC<{ onCreated: (proposal: ProposalData) => void }> = (
   };
 
   return (
-    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-xl w-full mx-4 p-8 bg-white/90 backdrop-blur-md rounded-[2.5rem] shadow-2xl border-4 border-rose-100 z-10">
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-xl mx-4 p-8 bg-white/90 backdrop-blur-md rounded-[2.5rem] shadow-2xl border-4 border-rose-100 z-10">
       <h2 className="text-4xl font-romantic text-rose-600 mb-6 text-center">Create Your Proposal</h2>
       
       {error && (
