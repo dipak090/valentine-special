@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Heart, Sparkles, Music, Star, Loader2, Upload, Share2, Copy, Check, ArrowLeft, ExternalLink, AlertCircle, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
+
 // --- Configuration ---
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
@@ -203,7 +204,7 @@ const ProposalView: React.FC<{ onAccept: () => void, customImage?: string, partn
   }, [moveNoButton]);
 
   return (
-    <div ref={containerRef} className="relative flex flex-col items-center justify-center p-6 min-h-screen">
+    <div ref={containerRef} className="relative w-full h-full flex flex-col items-center justify-center p-6 min-h-screen overflow-hidden">
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center z-10 w-full max-w-3xl">
         <div className="mb-10 relative inline-block">
           <motion.div animate={{ rotate: [0, -2, 2, 0], scale: [1, 1.02, 1] }} transition={{ duration: 6, repeat: Infinity }}>
@@ -516,6 +517,7 @@ export default function App() {
   }
 
   return (
+    <>
     <div className="min-h-screen w-full bg-gradient-to-br from-rose-50 via-white to-rose-100 flex items-center justify-center relative overflow-hidden">
       <FloatingHearts />
       
@@ -555,5 +557,7 @@ export default function App() {
       <div className="fixed bottom-0 left-0 p-10 text-rose-200/50 hidden lg:block"><Music size={60} className="animate-pulse" /></div>
       <div className="fixed top-0 right-0 p-10 text-rose-200/50 hidden lg:block"><Sparkles size={60} className="animate-bounce" /></div>
     </div>
+    <Analytics />
+    </>
   );
 }
